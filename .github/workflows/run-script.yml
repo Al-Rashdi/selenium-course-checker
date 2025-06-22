@@ -2,7 +2,7 @@ name: Run Selenium Script Every 4 Hours
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Every 4 hours UTC
+    - cron: '*/1 * * * *'  # Every 4 hours UTC
   workflow_dispatch:       # Manual trigger
 
 jobs:
