@@ -39,12 +39,15 @@ def my_script():
         actions.send_keys("jour")
         actions.send_keys(Keys.RETURN)
         actions.perform()
-        time.sleep(1)
-
+        time.sleep(2)
         filter_input = driver.find_element(By.ID, "pbid-filterText")
+        driver.execute_script("arguments[0].scrollIntoView(true);", filter_input)
+        
+
+        
         filter_input.click()
         filter_input.send_keys("C/D")
-        time.sleep(1)
+        time.sleep(0.5)
 
         full_elements = driver.find_elements(By.XPATH, "//*[text()='FULL']")
         print(f"Number of FULL appearances: {len(full_elements)}")
