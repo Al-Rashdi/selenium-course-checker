@@ -39,7 +39,7 @@ def my_script():
         actions.send_keys("jour")
         actions.send_keys(Keys.RETURN)
         actions.perform()
-        time.sleep(0.5)
+        time.sleep(1)
 
         filter_input = driver.find_element(By.ID, "pbid-filterText")
         filter_input.click()
