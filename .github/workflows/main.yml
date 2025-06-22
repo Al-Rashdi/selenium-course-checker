@@ -2,7 +2,7 @@ name: Run Selenium Script Every 4 Hours
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Every 4 hours UTC
+    - cron: '0 */4 * * *'   # Every 4 hours UTC
   workflow_dispatch:       # Manual trigger
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
     - name: Run script
-      run: python main.py
+      run: python .github/workflows/main.py
       env:
         GMAIL_USER: ${{ secrets.GMAIL_USER }}
         GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
