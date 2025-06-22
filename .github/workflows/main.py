@@ -10,6 +10,12 @@ from email.mime.text import MIMEText
 import schedule
 import time
 import os
+import chromedriver_autoinstaller
+from selenium.webdriver.chrome.options import Options
+
+
+# Automatically install compatible chromedriver if not already installed
+
 
 username = os.environ["GMAIL_USER"]
 password = os.environ["GMAIL_PASS"]
@@ -20,8 +26,14 @@ def run_script():
     my_script()  # or import your function
 
 def my_script():
-    
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    chromedriver_autoinstaller.install()
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = webdriver.Chrome(options=options)
+
 
     driver.get("https://self-service.dal.ca/BannerExtensibility/customPage/page/dal.stuweb_academicTimetable")
 
