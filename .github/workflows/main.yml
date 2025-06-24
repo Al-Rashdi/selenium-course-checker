@@ -26,8 +26,3 @@ jobs:
       env:
         GMAIL_USER: ${{ secrets.GMAIL_USER }}
         GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
-    - name: Commit updated data.txt
-      run:
-        git add data.txt 
-        git commit -m "update data.txt"
-        git push
