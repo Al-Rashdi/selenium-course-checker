@@ -80,7 +80,7 @@ def my_script():
             print("Number to the left of WLIST:", el.text.strip())
             wlist_number = el.text.strip()
 
-        with open("data.txt", "r") as f:
+        with open("./data.txt", "r") as f:
             old_value = int(f.read().strip())
 
         # New value from your Selenium script
@@ -94,7 +94,7 @@ def my_script():
             print("List increased! Notifying user...")
             notify("List increased!")
         # Update the file with the new value
-        with open("data.txt", "w") as f:
+        with open("./data.txt", "w") as f:
             f.write(str(new_value))
 
 
