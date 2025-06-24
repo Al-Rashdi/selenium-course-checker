@@ -78,7 +78,7 @@ def my_script():
 
         for el in wlist_number:
             print("Number to the left of WLIST:", el.text.strip())
-            wlist_number = el.text.strip()
+            wlist_number =  int(el.text.strip())
 
         with open("data.txt", "r") as f:
             old_value = int(f.read().strip())
@@ -119,4 +119,3 @@ def notify(message):
 
 # Run once when script is triggered
 my_script()
-
