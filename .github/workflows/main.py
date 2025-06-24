@@ -11,7 +11,6 @@ import os
 import chromedriver_autoinstaller
 from selenium.webdriver.chrome.options import Options
 
-# Get Gmail credentials from environment
 username = os.environ["GMAIL_USER"]
 password = os.environ["GMAIL_PASS"]
 
@@ -53,22 +52,70 @@ def my_script():
         print(f"Number of FULL appearances: {len(full_elements)}")
 
         if len(full_elements) < 3:
-            msg = MIMEText("check timetable!")
-            msg["Subject"] = "Course Notification"
-            msg["From"] = username
-            msg["To"] = username
+            notify("journalism avaliable")
 
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-                server.login(username, password)
-                server.send_message(msg)
+        driver.get("https://self-service.dal.ca/BannerExtensibility/customPage/page/dal.stuweb_academicTimetable")
+        time.sleep(3)
+        
+        subject = driver.find_element(By.ID, "s2id_pbid-subjectCode")
+        driver.execute_script("arguments[0].scrollIntoView(true);", subject)
+        time.sleep(0.5)
+        subject.click()
+        time.sleep(1)
+        
+        actions = ActionChains(driver)
+        actions.send_keys("PSYO")
+        actions.send_keys(Keys.RETURN)
+        actions.perform()
+        time.sleep(2)
+        filter_input = driver.find_element(By.ID, "pbid-filterText")
+        driver.execute_script("arguments[0].scrollIntoView(true);", filter_input)
+        filter_input.click()
+        filter_input.send_keys("31148")
+        time.sleep(1)
+        
+        wlist_number= driver.find_elements(By.XPATH,"//td[.//font[text()='WLIST']]/preceding-sibling::td[1]")
 
-            print("Email sent!")
+        for el in wlist_number:
+            print("Number to the left of WLIST:", el.text.strip())
+            wlist_number = el.text.strip()
+
+        with open("data.txt", "r") as f:
+            old_value = int(f.read().strip())
+
+        # New value from your Selenium script
+        new_value = wlist_number  # Replace this with your actual logic
+
+        if new_value < old_value:
+            # Send email or alert
+            print("List decreased! Notifying user...")
+            notify("List decreased!")
+        elif new_value > old_value:
+            print("List increased! Notifying user...")
+            notify("List increased!")
+        # Update the file with the new value
+        with open("data.txt", "w") as f:
+            f.write(str(new_value))
+
 
     except Exception as e:
         print(f"❌ Error occurred: {e}")
-
+        
+        
     finally:
         driver.quit()
+def notify(message):
+    msg = MIMEText("check timetable!")
+    msg["Subject"] = message
+    msg["From"] = username
+    msg["To"] = username
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        server.login(username, password)
+        server.send_message(msg)
+
+    print("Email sent!")
 
 # Run once when script is triggered
 my_script()
+
