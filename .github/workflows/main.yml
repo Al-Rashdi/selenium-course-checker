@@ -2,7 +2,7 @@ name: Run Selenium Script Every 20 minutes
 
 on:
   schedule:
-    - cron: '*/20 * * * *'  
+    - cron: '*/20 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout code with PAT
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_PAT }}  # ✅ inject token here
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -26,14 +28,11 @@ jobs:
       env:
         GMAIL_USER: ${{ secrets.GMAIL_USER }}
         GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
-        
+
     - name: Commit updated data.txt
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
-        git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
         git add data.txt || true
         git diff --quiet && git diff --staged --quiet || git commit -m "Update tracked number"
         git push origin main
