@@ -80,7 +80,7 @@ def my_script():
             print("Number to the left of WLIST:", el.text.strip())
             wlist_number = el.text.strip()
 
-       with open(os.path.join(os.path.dirname(__file__), "../../data.txt"), "r") as f:
+        with open(os.path.join(os.path.dirname(__file__), "../../data.txt"), "r") as f:
             old_value = int(f.read().strip())
 
         # New value from your Selenium script
