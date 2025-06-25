@@ -25,34 +25,34 @@ def my_script():
     driver = webdriver.Chrome(options=options)
 
     try:
-        driver.get("https://self-service.dal.ca/BannerExtensibility/customPage/page/dal.stuweb_academicTimetable")
-        time.sleep(3)
+        # driver.get("https://self-service.dal.ca/BannerExtensibility/customPage/page/dal.stuweb_academicTimetable")
+        # time.sleep(3)
 
-        subject = driver.find_element(By.LINK_TEXT, "Select a Subject")
-        driver.execute_script("arguments[0].scrollIntoView(true);", subject)
-        time.sleep(0.5)
-        subject.click()
-        time.sleep(1)
+        # subject = driver.find_element(By.LINK_TEXT, "Select a Subject")
+        # driver.execute_script("arguments[0].scrollIntoView(true);", subject)
+        # time.sleep(0.5)
+        # subject.click()
+        # time.sleep(1)
 
-        actions = ActionChains(driver)
-        actions.send_keys("jour")
-        actions.send_keys(Keys.RETURN)
-        actions.perform()
-        time.sleep(2)
-        filter_input = driver.find_element(By.ID, "pbid-filterText")
-        driver.execute_script("arguments[0].scrollIntoView(true);", filter_input)
+        # actions = ActionChains(driver)
+        # actions.send_keys("jour")
+        # actions.send_keys(Keys.RETURN)
+        # actions.perform()
+        # time.sleep(2)
+        # filter_input = driver.find_element(By.ID, "pbid-filterText")
+        # driver.execute_script("arguments[0].scrollIntoView(true);", filter_input)
         
 
         
-        filter_input.click()
-        filter_input.send_keys("C/D")
-        time.sleep(0.5)
+        # filter_input.click()
+        # filter_input.send_keys("C/D")
+        # time.sleep(0.5)
 
-        full_elements = driver.find_elements(By.XPATH, "//*[text()='FULL']")
-        print(f"Number of FULL appearances: {len(full_elements)}")
+        # full_elements = driver.find_elements(By.XPATH, "//*[text()='FULL']")
+        # print(f"Number of FULL appearances: {len(full_elements)}")
 
-        if len(full_elements) < 3:
-            notify("journalism avaliable")
+        # if len(full_elements) < 3:
+        #     notify("journalism avaliable")
 
         driver.get("https://self-service.dal.ca/BannerExtensibility/customPage/page/dal.stuweb_academicTimetable")
         time.sleep(3)
@@ -87,10 +87,10 @@ def my_script():
         if new_value < old_value:
             # Send email or alert
             print("List decreased! Notifying user...")
-            notify("List decreased!")
+            notify(f"List decreased! the number on the list is {new_value}" )
         elif new_value > old_value:
             print("List increased! Notifying user...")
-            notify("List increased!")
+            notify(f"List increased! the number on the list is {new_value}"")
         # Update the file with the new value
         with open("data.txt", "w") as f:
             f.write(str(new_value))
