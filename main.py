@@ -78,14 +78,11 @@ def my_script():
 
         for el in wlist_number:
             print("Number to the left of WLIST:", el.text.strip())
-            wlist_number = int(wlist_number[0].text.strip())
+            new_value = int(wlist_number[0].text.strip())
 
             
         with open("data.txt", "r") as f:
             old_value = int(f.read().strip())
-
-        # New value from your Selenium script
-        new_value = wlist_number  # Replace this with your actual logic
 
         if new_value < old_value:
             # Send email or alert
