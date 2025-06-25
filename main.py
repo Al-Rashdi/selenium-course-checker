@@ -90,7 +90,7 @@ def my_script():
             notify(f"List decreased! the number on the list is {new_value}" )
         elif new_value > old_value:
             print("List increased! Notifying user...")
-            notify(f"List increased! the number on the list is {new_value}"")
+            notify(f"List increased! the number on the list is {new_value}")
         # Update the file with the new value
         with open("data.txt", "w") as f:
             f.write(str(new_value))
