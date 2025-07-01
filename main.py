@@ -74,10 +74,10 @@ def my_script():
         filter_input.send_keys("31148")
         time.sleep(1)
         
-        wlist_number= driver.find_elements(By.XPATH,"//td[.//font[text()='WLIST']]/preceding-sibling::td[1]")
+        wlist_number = driver.find_elements(By.XPATH,"//td[.//font[text()='WLIST'] or .//font[text()='WL FULL']]/preceding-sibling::td[1]")
         new_value = 9999
         for el in wlist_number:
-            print("Number to the left of WLIST:", el.text.strip())
+            print("Number in the wait list is :", el.text.strip())
             new_value = int(wlist_number[0].text.strip())
 
             
